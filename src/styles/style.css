@@ -1,0 +1,14 @@
+body {
+  background: white;
+}
+
+.movie-entry {
+  color: black;
+  width: 80%;
+  height: 50px;
+  border: 1px solid lightgray;
+}
+
+.movie-list {
+  padding-top: 100px;
+}
