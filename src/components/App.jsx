@@ -8,18 +8,15 @@ class App extends React.Component {
     super(props);
     this.state = {
       movies: movies,
+      results: [],
       found: true
-    }
+    };
   }
 
   componentDidMount() {
     console.log(`Components mounted.`);
-  }
-
-  setMoviesState(movieList) {
     this.setState({
-      movies: movieList,
-      found: movieList.length > 0 ? true : false
+      results: this.state.movies
     });
   }
 
@@ -29,7 +26,20 @@ class App extends React.Component {
     // Get array of movies from movies state
     // Create new movie object
     // Use concat to merge and return new array
-    // Call setMoviesState with new array
+    // Set both movies and results state to new array,
+    //  i.e. users should see their search refreshed when adding new movies
+    var newMovie = { title: title };
+    var movieList = this.state.movies.concat(newMovie);
+    this.setState({
+      movies: movieList,
+      results: movieList
+    });
+  }
+
+  addHandler(e) {
+    e.preventDefault();
+    var title = document.getElementById("add-title").value;
+    this.addMovie(title);
   }
 
   /* SEARCH FUNCTIONALITY */
@@ -39,9 +49,12 @@ class App extends React.Component {
     // Receive a search term
     // Filter movie list by titles with partial/full match
     //   Note: can use title.indexOf(search) >= 0
-    // Pass filtered array to setMoviesState
-    var searchArr = movies.filter(movie => movie.title.toLowerCase().indexOf(search.toLowerCase()) >= 0);
-    this.setMoviesState(searchArr);
+    // Set state with search results
+    var searchArr = this.state.movies.filter(movie => movie.title.toLowerCase().indexOf(search.toLowerCase()) >= 0);
+    this.setState({
+      results: searchArr,
+      found: searchArr.length > 0 ? true : false
+    });
   }
 
   searchHandler(e) {
@@ -58,9 +71,9 @@ class App extends React.Component {
     return (
       <div>
         <div className="navbar">MovieList</div>
-        <AddMovie />
+        <AddMovie addHandler={this.addHandler.bind(this)} />
         <Search submitHandler={this.searchHandler.bind(this)} />
-        <MovieList movies={this.state.movies} found={this.state.found} />
+        <MovieList movies={this.state.results} found={this.state.found} />
       </div>
     );
   }

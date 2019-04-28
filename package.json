@@ -2,10 +2,11 @@
   "name": "Movie List",
   "version": "1.1.0",
   "description": "Movie List assignment for Hack Reactor",
-  "author": "Eric Do <curriculum.team@hackreactor.com>",
+  "author": "Eric Do <ericdo.617@gmail.com>",
   "license": "UNLICENSED",
   "private": true,
   "scripts": {
+    "test": "live-server --open=./SpecRunner.html --port=8081",
     "babel-go": "babel . --out-dir compiled --presets=react --ignore=node_modules,compiled --source-maps inline --watch",
     "postinstall": "curl -s https://raw.githubusercontent.com/reactorcore/pomander/master/bin/install | bash"
   },
