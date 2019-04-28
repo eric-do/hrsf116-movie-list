@@ -15,7 +15,7 @@ live-server
 ```
 
 
-## Gotcha moments during coding
+## Gotchas
 ### Class names
 React requires 'className' rather than 'class' for HTML tags.
 ```
