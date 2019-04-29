@@ -2,10 +2,10 @@ import MovieEntry from './MovieEntry.js';
 
 var MovieList = (props) => (
   <div>
-    <div id="movie-list" className="movie-list">
+    <div id="movie-list" className="movie-list" style={props.found === false ? {display: "none"} : {}}>
       {
         props.movies.map(movie => (
-          <MovieEntry key={movie.title.toString()} movie={movie} style={props.found === false ? {display: "none"} : {}} />
+          <MovieEntry key={movie.title.toString()} movie={movie}  />
         )) 
       }
     </div>

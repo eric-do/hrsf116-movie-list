@@ -8,16 +8,16 @@ class App extends React.Component {
     super(props);
     this.state = {
       movies: movies,
-      results: [],
+      results: movies,
       found: true
     };
   }
 
   componentDidMount() {
     console.log(`Components mounted.`);
-    this.setState({
-      results: this.state.movies
-    });
+    // this.setState({
+    //   results: this.state.movies
+    // });
   }
 
   /* ADD FUNCTIONALITY */
