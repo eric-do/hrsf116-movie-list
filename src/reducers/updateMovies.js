@@ -4,10 +4,10 @@ var updateMoviesReducer = (state = [], action) => {
   }
  
   switch (action.type) {
-    case 'UPDATE_MOVIES':
-      return action.movies;
-    default:
-      return state;
+  case 'UPDATE_MOVIES':
+    return action.movies;
+  default:
+    return state;
   }
 };
 

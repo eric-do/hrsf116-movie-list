@@ -4,8 +4,8 @@ import rootReducer from './../reducers/main.js';
 
 export default (function store(initialState) {
   return createStore(
-      rootReducer,
-      initialState,
-      applyMiddleware(thunk)
+    rootReducer,
+    initialState,
+    applyMiddleware(thunk)
   );
 })();
