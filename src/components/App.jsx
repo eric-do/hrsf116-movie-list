@@ -6,10 +6,18 @@ import AddMovie from './AddMovie.js';
 class App extends React.Component {
   constructor(props) {
     super(props);
+
+    var watched = movies.reduce((acc, movie) => {
+      acc[movie.title] = false;      
+      return acc;
+    }, {});
+
     this.state = {
       movies: movies,
       results: movies,
-      found: true
+      view: "toWatch",
+      found: true, 
+      watched: watched
     };
   }
 
@@ -67,13 +75,52 @@ class App extends React.Component {
     this.searchMovies(search);
   }
 
+
+  /* Watched Handler */
+  watchedHandler(e, title) {
+    // Inputs: event, title
+    // Objective: update watched state
+    // Prevent event default
+    // Update watched status for movie title to be its current opposite
+    // Upate state of watched object
+
+    e.preventDefault();
+    var watched = Object.assign(this.state.watched);
+    watched[title] = !this.state.watched[title];
+    this.setState({
+      watched: watched
+    })
+  }
+
+  /* View Handler */
+  viewHandler(view) {
+    if (view === "watched") {
+      var filteredArr = this.state.movies.filter(movie => {
+        return this.state.watched[movie.title] === true;
+      });
+    } else if (view === "toWatch") {
+      var filteredArr = this.state.movies.filter(movie => {
+        return this.state.watched[movie.title] === false;
+      });
+    }
+    this.setState({
+      view: view,
+      results: filteredArr
+    });
+  }
+
   render() {
     return (
       <div>
         <div className="navbar">MovieList</div>
         <AddMovie addHandler={this.addHandler.bind(this)} />
-        <Search submitHandler={this.searchHandler.bind(this)} />
-        <MovieList movies={this.state.results} found={this.state.found} />
+        <button className="btn-view" onClick={(e) => this.viewHandler("watched")}>Watched</button>
+        <button className="btn-view" onClick={(e) => this.viewHandler("toWatch")}>To Watch</button>
+        <Search submitHandler={this.searchHandler.bind(this)} viewHandler={this.viewHandler.bind(this)} />
+        <MovieList movies={this.state.results} 
+                   found={this.state.found} 
+                   watched={this.state.watched}
+                   watchedHandler={this.watchedHandler.bind(this)}/>
       </div>
     );
   }

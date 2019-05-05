@@ -5,7 +5,10 @@ var MovieList = (props) => (
     <div id="movie-list" className="movie-list" style={props.found === false ? {display: "none"} : {}}>
       {
         props.movies.map(movie => (
-          <MovieEntry key={movie.title.toString()} movie={movie}  />
+          <MovieEntry key={movie.title.toString()} 
+                      movie={movie} 
+                      watched={props.watched[movie.title]}
+                      watchedHandler={props.watchedHandler}/>
         )) 
       }
     </div>
